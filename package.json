@@ -2,7 +2,6 @@
   "name": "functions-guide",
   "version": "0.1.0",
   "private": true,
-  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@appwrite.io/pink": "^0.0.6-rc.15",
     "autoprefixer": "10.4.16",
     "next": "13.5.2",
     "postcss": "8.4.30",

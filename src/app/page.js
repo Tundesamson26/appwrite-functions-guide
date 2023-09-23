@@ -1,172 +1,49 @@
-"use client"; 
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import "@appwrite.io/pink"; // optionally, add icons
-import "@appwrite.io/pink-icons";
-import { account, client, clientFunctions } from '../../web-init';
-import { Databases } from "appwrite";
+import { Client, Databases, Query, ID } from 'node-appwrite';
+import querystring from 'node:querystring';
 
 
-export default function() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [content, setContent] = useState("");
 
-  const databases = new Databases(client);
+export default async function ({ req, res }) {
+  const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Form</title>
+  </head>
+  <body>
+    <form action="/" method="POST">
+      <input type="text" id="name" name="name" placeholder="Name" required>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <textarea id="content" name="content" placeholder="Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>`
 
-  const uploadBooking = async (e) => {
-    e.preventDefault();
+  if (req.method === 'GET') {
+    return res.send(html, 200, {'content-type': 'text/html'});
+  }
 
-    try {
-      await databases.createDocument(
-        "650efb16ae5ebb92185a",
-        "650efb593f6c9f97c09c",
-        "unique()",
-        {
-          name: name,
-          email: email,
-          date: date,
-          time: time,
-          content: content,
-        }
-      );
+  if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
+    const formData = querystring.parse(req.body);
 
-      alert("Booking sent in");
-      // Use router to navigate to the dashboard page
-      // router.push('/dashboard');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const message = {
+      name: formData.name,
+      email: formData.email,
+      content: formData.content
+    };
 
-  useEffect(() => {
-    // Call clientFunctions and handle the promise
-    clientFunctions()
-      .then((res) => res)
-      .catch((error) => {
-        console.log(error);
-      });
+    const client = new Client();
+    client
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
+      .setKey(process.env.APPWRITE_API_KEY);
 
-    // if (router.query.insight) {
-    //   try {
-    //     // Subscribe to "documents" and call checkDosage function
-    //     const unsubscribe = client.subscribe("documents", (response) => {
-    //       checkDosage();
-    //     });
+    const databases = new Databases(client);
+    const document = await databases.createDocument('[DATABASE_ID]', '[MESSAGES_COLLECTION_ID]', ID.unique(), message);
 
-    //     // Cleanup the subscription when the component unmounts
-    //     return () => {
-    //       unsubscribe();
-    //     };
-    //   } catch (error) {
-    //     console.log(error, "error");
-    //   }
-    // }updated
-  }, []);
+    return res.send("Message sent");
+  }
 
-  return (
-    <section>
-      <div
-        className="u-flex u-main-space-between u-cross-center"
-        style={{
-          padding: '20px',
-          backgroundColor: 'rgb(219, 26, 90)',
-          color: 'white',
-          marginBottom: '20px',
-        }}
-      >
-        <h1 className="u-text-center u-font-size-32">Book Me</h1>
-        <Link href="/dashboard" style={{ paddingRight: '30px' }}>
-            Dashboard
-        </Link>
-      </div>
-      <div className="card u-cross-center u-width-full-line u-max-width-500" style={{ margin: 'auto' }}>
-        <div className="u-flex u-main-space-between u-cross-center">
-          <h6 className="heading-level-6 u-text-center">New Guest</h6>
-        </div>
-
-        <form method="post" onSubmit={uploadBooking} className="form u-margin-block-start-24">
-          <ul className="form-list">
-            <li className="form-item">
-              <label className="label">Full Name</label>
-              <div className="input-text-wrapper">
-                <input
-                  type="text"
-                  className="input-text u-padding-inline-end-56"
-                  placeholder="Full name"
-                  name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-            </li>
-            <li className="form-item">
-              <label className="label">Email</label>
-              <div className="input-text-wrapper">
-                <input
-                  type="email"
-                  className="input-text u-padding-inline-end-56"
-                  placeholder="abc@example.com"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </li>
-            <div className="u-flex u-main-space-between u-cross-center">
-              <li className="form-item">
-                <label className="label">Check-In</label>
-                <div className="input-text-wrapper">
-                  <input
-                    type="date"
-                    name="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                  />
-                </div>
-              </li>
-              <li className="form-item">
-                <label className="label">Time</label>
-                <div className="input-text-wrapper">
-                  <select
-                    name="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                  >
-                    <option>2pm - 3pm</option>
-                    <option>4pm - 5pm</option>
-                    <option>6pm - 7pm</option>
-                    <option>8pm - 9pm</option>
-                  </select>
-                </div>
-              </li>
-            </div>
-            <li className="form-item">
-              <label className="label">Message</label>
-              <div className="input-text-wrapper">
-                <textarea
-                  className="input-text"
-                  placeholder="Type here..."
-                  name="message"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  style={{ height: '80px' }}
-                ></textarea>
-              </div>
-            </li>
-          </ul>
-
-          <div className="form-footer">
-            <div className="u-flex u-main-end u-gap-12">
-              <button className="button" type="submit">
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-  );
+  return res.send('Not found', 404);
 }

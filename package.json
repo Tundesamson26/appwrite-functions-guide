@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@appwrite.io/pink": "^0.0.6-rc.15",
+    "appwrite": "^13.0.0",
     "autoprefixer": "10.4.16",
     "next": "13.5.2",
     "postcss": "8.4.30",

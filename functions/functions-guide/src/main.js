@@ -26,7 +26,7 @@ export default async function ({ req, res }) {
       .setKey(process.env.APPWRITE_API_KEY);
 
     const databases = new Databases(client);
-    const document = await databases.createDocument('[DATABASE_ID]', '[MESSAGES_COLLECTION_ID]', ID.unique(), message);
+    const document = await databases.createDocument('650efb16ae5ebb92185a', '650efb593f6c9f97c09c', ID.unique(), message);
 
     return res.send("Message sent");
   }

@@ -1,9 +1,10 @@
 "use client"; 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
 import { account, client, clientFunctions } from '../../web-init';
+import { Databases } from "appwrite";
 
 
 export default function() {
@@ -13,13 +14,15 @@ export default function() {
   const [time, setTime] = useState("");
   const [content, setContent] = useState("");
 
+  const databases = new Databases(client);
+
   const uploadBooking = async (e) => {
     e.preventDefault();
 
     try {
       await databases.createDocument(
-        "64681868ceef66544a00",
-        "64681913b4c68fd83d28",
+        "650efb16ae5ebb92185a",
+        "650efb593f6c9f97c09c",
         "unique()",
         {
           name: name,
@@ -37,6 +40,31 @@ export default function() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    // Call clientFunctions and handle the promise
+    clientFunctions()
+      .then((res) => res)
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // if (router.query.insight) {
+    //   try {
+    //     // Subscribe to "documents" and call checkDosage function
+    //     const unsubscribe = client.subscribe("documents", (response) => {
+    //       checkDosage();
+    //     });
+
+    //     // Cleanup the subscription when the component unmounts
+    //     return () => {
+    //       unsubscribe();
+    //     };
+    //   } catch (error) {
+    //     console.log(error, "error");
+    //   }
+    // }
+  }, []);
 
   return (
     <section>

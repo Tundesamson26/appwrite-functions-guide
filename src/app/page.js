@@ -25,6 +25,8 @@ export default function BookMe() {
     // //payload come here
     // name: formData.name,
     // email: formData.email,
+    // date: formData.date,
+    // time: formData.time,
     // content: formData.content
     // })
   };
@@ -66,12 +68,26 @@ export default function BookMe() {
               </div>
             </li>
             <li className="form-item">
+              <label className="label">Email</label>
+              <div className="input-text-wrapper">
+                <input
+                  type="email"
+                  className="input-text u-padding-inline-end-56"
+                  placeholder="abc@example.com"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </li>
+            <div className="u-flex u-main-space-between u-cross-center">
+              <li className="form-item">
                 <label className="label">Check-In</label>
                 <div className="input-text-wrapper">
                   <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
+                    type="date"
+                    name="date"
+                    value={formData.date}
                     onChange={handleChange}
                   />
                 </div>
@@ -91,6 +107,7 @@ export default function BookMe() {
                   </select>
                 </div>
               </li>
+            </div>
             <li className="form-item">
               <label className="label">Message</label>
               <div className="input-text-wrapper">

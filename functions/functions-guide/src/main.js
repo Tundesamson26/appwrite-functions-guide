@@ -1,10 +1,11 @@
 import { Client, Databases } from 'node-appwrite';
+import querystring from 'node:querystring';
 
 // This is your Appwrite function
 // It's executed each time we get a request
 export default async function ({ req, res }) {
   if (req.method === 'GET') {
-    return res.send(html, 200, {'content-type': 'text/html'});
+    return res.send(html, 200, { 'content-type': 'text/html' });
   }
 
   if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
@@ -13,6 +14,8 @@ export default async function ({ req, res }) {
     const message = {
       name: formData.name,
       email: formData.email,
+      date: formData.date,
+      time: formData.time,
       content: formData.content
     };
 

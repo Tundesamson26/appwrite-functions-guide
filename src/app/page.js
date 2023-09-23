@@ -20,12 +20,6 @@ export default function() {
     e.preventDefault();
 
     try {
-      await clientFunctions()
-      .then((res) => res)
-      .catch((error) => {
-        console.log(error);
-      });
-      
       await databases.createDocument(
         "650efb16ae5ebb92185a",
         "650efb593f6c9f97c09c",

@@ -4,7 +4,7 @@ const nextConfig = {
     reactStrictMode: true,
     env: {
       PROJECT_ID: process.env.PROJECT_ID,
-      ENDPOINT: process.env.ENDPOINT,
+      API_ENDPOINT: process.env.ENDPOINT,
       API_KEY: process.env.API_KEY
     },
     webpack: (config, { isServer }) => {

@@ -3,32 +3,39 @@ import Link from 'next/link';
 import { useState } from 'react';
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
-// import app from '../../functions/functions-guide/src/main';
+import { account, client, clientFunctions } from '../../web-init';
 
-export default function BookMe() {
-  const [formData, setFormData] = useState({
-    name: '',
-    message: '',
-    date: '',
-    time: '',                   
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+export default function() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const uploadBooking = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    // app().post('', {
-    // //payload come here
-    // name: formData.name,
-    // email: formData.email,
-    // date: formData.date,
-    // time: formData.time,
-    // content: formData.content
-    // })
+
+    try {
+      await databases.createDocument(
+        "64681868ceef66544a00",
+        "64681913b4c68fd83d28",
+        "unique()",
+        {
+          name: name,
+          email: email,
+          date: date,
+          time: time,
+          content: content,
+        }
+      );
+
+      alert("Booking sent in");
+      // Use router to navigate to the dashboard page
+      // router.push('/dashboard');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -52,7 +59,7 @@ export default function BookMe() {
           <h6 className="heading-level-6 u-text-center">New Guest</h6>
         </div>
 
-        <form method="post" onSubmit={handleSubmit} className="form u-margin-block-start-24">
+        <form method="post" onSubmit={uploadBooking} className="form u-margin-block-start-24">
           <ul className="form-list">
             <li className="form-item">
               <label className="label">Full Name</label>
@@ -62,8 +69,8 @@ export default function BookMe() {
                   className="input-text u-padding-inline-end-56"
                   placeholder="Full name"
                   name="name"
-                  value={formData.name}
-                  onChange={handleChange}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
             </li>
@@ -75,8 +82,8 @@ export default function BookMe() {
                   className="input-text u-padding-inline-end-56"
                   placeholder="abc@example.com"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </li>
@@ -87,8 +94,8 @@ export default function BookMe() {
                   <input
                     type="date"
                     name="date"
-                    value={formData.date}
-                    onChange={handleChange}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
               </li>
@@ -97,8 +104,8 @@ export default function BookMe() {
                 <div className="input-text-wrapper">
                   <select
                     name="time"
-                    value={formData.time}
-                    onChange={handleChange}
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
                   >
                     <option>2pm - 3pm</option>
                     <option>4pm - 5pm</option>
@@ -115,8 +122,8 @@ export default function BookMe() {
                   className="input-text"
                   placeholder="Type here..."
                   name="message"
-                  value={formData.content}
-                  onChange={handleChange}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
                   style={{ height: '80px' }}
                 ></textarea>
               </div>

@@ -3,13 +3,14 @@ import Link from 'next/link';
 import { useState } from 'react';
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
+import app from '../../functions/functions-guide/src/main';
 
 export default function BookMe() {
   const [formData, setFormData] = useState({
     name: '',
     message: '',
     date: '',
-    time: '',
+    time: '',                   
   });
 
   const handleChange = (e) => {
@@ -20,6 +21,12 @@ export default function BookMe() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
+    app().post('', {
+    //payload come here
+    name: formData.name,
+    email: formData.email,
+    content: formData.content
+    })
   };
 
   return (
@@ -63,9 +70,9 @@ export default function BookMe() {
                 <label className="label">Check-In</label>
                 <div className="input-text-wrapper">
                   <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
+                    type="email"
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
                   />
                 </div>
@@ -93,7 +100,7 @@ export default function BookMe() {
                   className="input-text"
                   placeholder="Type here..."
                   name="message"
-                  value={formData.message}
+                  value={formData.content}
                   onChange={handleChange}
                   style={{ height: '80px' }}
                 ></textarea>

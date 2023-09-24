@@ -1,19 +1,15 @@
-"use client"; 
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
-import { account, client, clientFunctions } from '../../web-init';
-import { Databases } from "appwrite";
+import { account, client, databases, clientFunctions } from "../../web-init";
 
-
-export default function() {
+export default function () {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [content, setContent] = useState("");
-
-  const databases = new Databases(client);
 
   const uploadBooking = async (e) => {
     e.preventDefault();
@@ -46,6 +42,15 @@ export default function() {
         console.log(error);
       });
 
+    if (account.get !== null) {
+      try {
+        client.subscribe("documents", (response) => {
+          console.log(response);
+        });
+      } catch (error) {
+        console.log(error, "error");
+      }
+    }
   }, []);
 
   return (
@@ -53,20 +58,27 @@ export default function() {
       <div
         className="u-flex u-main-space-between u-cross-center"
         style={{
-          padding: '20px',
-          backgroundColor: 'rgb(219, 26, 90)',
-          color: 'white',
-          marginBottom: '20px',
+          padding: "20px",
+          backgroundColor: "rgb(219, 26, 90)",
+          color: "white",
+          marginBottom: "20px",
         }}
       >
         <h1 className="u-text-center u-font-size-32">Book Me</h1>
       </div>
-      <div className="card u-cross-center u-width-full-line u-max-width-500" style={{ margin: 'auto' }}>
+      <div
+        className="card u-cross-center u-width-full-line u-max-width-500"
+        style={{ margin: "auto" }}
+      >
         <div className="u-flex u-main-space-between u-cross-center">
           <h6 className="heading-level-6 u-text-center">New Guest</h6>
         </div>
 
-        <form method="post" onSubmit={uploadBooking} className="form u-margin-block-start-24">
+        <form
+          method="post"
+          onSubmit={uploadBooking}
+          className="form u-margin-block-start-24"
+        >
           <ul className="form-list">
             <li className="form-item">
               <label className="label">Full Name</label>
@@ -131,7 +143,7 @@ export default function() {
                   name="message"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  style={{ height: '80px' }}
+                  style={{ height: "80px" }}
                 ></textarea>
               </div>
             </li>

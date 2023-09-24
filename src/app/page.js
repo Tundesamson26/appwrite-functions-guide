@@ -1,5 +1,4 @@
 "use client"; 
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
@@ -68,9 +67,6 @@ export default function({req, res}) {
         }}
       >
         <h1 className="u-text-center u-font-size-32">Book Me</h1>
-        <Link href="/dashboard" style={{ paddingRight: '30px' }}>
-            Dashboard
-        </Link>
       </div>
       <div className="card u-cross-center u-width-full-line u-max-width-500" style={{ margin: 'auto' }}>
         <div className="u-flex u-main-space-between u-cross-center">

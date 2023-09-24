@@ -29,6 +29,13 @@ export default function () {
       );
 
       alert("Booking sent in");
+
+      clientFunctions()
+      .then((res) => res)
+      .catch((error) => {
+        console.log(error);
+      });
+      
     } catch (error) {
       console.error(error);
     }
@@ -36,11 +43,7 @@ export default function () {
 
   useEffect(() => {
     // Call clientFunctions and handle the promise
-    clientFunctions()
-      .then((res) => res)
-      .catch((error) => {
-        console.log(error);
-      });
+
 
     if (account.get !== null) {
       try {

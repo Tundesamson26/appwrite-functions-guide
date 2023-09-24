@@ -6,7 +6,7 @@ import { account, client, clientFunctions } from '../../web-init';
 import { Databases } from "appwrite";
 
 
-export default function({req, res}) {
+export default function() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
@@ -18,42 +18,35 @@ export default function({req, res}) {
   const uploadBooking = async (e) => {
     e.preventDefault();
 
-    if (req.method === 'GET') {
-      return res.send(html, 200, {'content-type': 'text/html'});
+    try {
+      await databases.createDocument(
+        "650efb16ae5ebb92185a",
+        "650efb593f6c9f97c09c",
+        "unique()",
+        {
+          name: name,
+          email: email,
+          date: date,
+          time: time,
+          content: content,
+        }
+      );
+
+      alert("Booking sent in");
+    } catch (error) {
+      console.error(error);
     }
-    if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
-      const formData = querystring.parse(req.body);
-      try {
-        await databases.createDocument(
-          "650efb16ae5ebb92185a",
-          "650efb593f6c9f97c09c",
-          "unique()",
-          {
-            name: formData.name,
-            email: formData.email,
-            date: formData.date,
-            time: formData.time,
-            content: formData.content,
-          }
-        );
-        alert("Booking sent in");
-      } catch (error) {
-        console.error(error);
-      }
-      return res.send("Message sent");
-    }
-    return res.send('Not found', 404);
   };
 
-  // useEffect(() => {
-  //   // Call clientFunctions and handle the promise
-  //   clientFunctions()
-  //     .then((res) => res)
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
+  useEffect(() => {
+    // Call clientFunctions and handle the promise
+    clientFunctions()
+      .then((res) => res)
+      .catch((error) => {
+        console.log(error);
+      });
 
-  // }, []);
+  }, []);
 
   return (
     <section>

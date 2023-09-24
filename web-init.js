@@ -9,5 +9,5 @@ client
 
 export const clientFunctions = () => {
   const functions = new Functions(client);
-  return functions.listExecutions('650d7da70fe9d2907fbe');
+  return functions.createExecution('650d7da70fe9d2907fbe');
 }

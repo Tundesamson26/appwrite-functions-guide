@@ -18,12 +18,12 @@ export default function({req, res}) {
 
   const uploadBooking = async (e) => {
     e.preventDefault();
-    const formData = querystring.parse(req.body);
 
     if (req.method === 'GET') {
       return res.send(html, 200, {'content-type': 'text/html'});
     }
     if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
+      const formData = querystring.parse(req.body);
       try {
         await databases.createDocument(
           "650efb16ae5ebb92185a",
@@ -41,7 +41,9 @@ export default function({req, res}) {
       } catch (error) {
         console.error(error);
       }
+      return res.send("Message sent");
     }
+    return res.send('Not found', 404);
   };
 
   // useEffect(() => {

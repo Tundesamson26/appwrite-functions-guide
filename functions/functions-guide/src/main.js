@@ -1,11 +1,25 @@
-import { Client, Databases } from 'node-appwrite';
+import { Client, Databases, Query, ID } from 'node-appwrite';
 import querystring from 'node:querystring';
 
-// This is your Appwrite function
-// It's executed each time we get a request
+const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Form</title>
+  </head>
+  <body>
+    <form action="/" method="POST">
+      <input type="text" id="name" name="name" placeholder="Name" required>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <textarea id="content" name="content" placeholder="Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>`
+
 export default async function ({ req, res }) {
   if (req.method === 'GET') {
-    return res.send(html, 200, { 'content-type': 'text/html' });
+    return res.send(html, 200, {'content-type': 'text/html'});
   }
 
   if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
@@ -14,8 +28,6 @@ export default async function ({ req, res }) {
     const message = {
       name: formData.name,
       email: formData.email,
-      date: formData.date,
-      time: formData.time,
       content: formData.content
     };
 
@@ -26,10 +38,10 @@ export default async function ({ req, res }) {
       .setKey(process.env.APPWRITE_API_KEY);
 
     const databases = new Databases(client);
-    const document = await databases.createDocument('650efb16ae5ebb92185a', '650efb593f6c9f97c09c', ID.unique(), message);
+    const document = await databases.createDocument('[DATABASE_ID]', '[MESSAGES_COLLECTION_ID]', ID.unique(), message);
 
     return res.send("Message sent");
   }
 
   return res.send('Not found', 404);
-};
+}

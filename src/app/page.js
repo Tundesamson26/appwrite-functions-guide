@@ -1,57 +1,32 @@
-"use client";
-import { useState, useEffect } from "react";
+
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
-import { account, client, databases, clientFunctions } from "../../web-init";
+// import { account, client, databases, clientFunctions } from "../../web-init";
 
 export default function () {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [content, setContent] = useState("");
 
-  const uploadBooking = async (e) => {
-    e.preventDefault();
+  // const uploadBooking = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      await databases.createDocument(
-        "650efb16ae5ebb92185a",
-        "650efb593f6c9f97c09c",
-        "unique()",
-        {
-          name: name,
-          email: email,
-          date: date,
-          time: time,
-          content: content,
-        }
-      );
+  //   try {
+  //     await databases.createDocument(
+  //       "650efb16ae5ebb92185a",
+  //       "650efb593f6c9f97c09c",
+  //       "unique()",
+  //       {
+  //         name: name,
+  //         email: email,
+  //         date: date,
+  //         time: time,
+  //         content: content,
+  //       }
+  //     );
 
-      alert("Booking sent in");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    // Call clientFunctions and handle the promise
-    clientFunctions()
-      .then((res) => res)
-      .catch((error) => {
-        console.log(error);
-      });
-
-    if (account.get !== null) {
-      try {
-        client.subscribe("documents", (response) => {
-          console.log(response);
-        });
-      } catch (error) {
-        console.log(error, "error");
-      }
-    }
-  }, []);
+  //     alert("Booking sent in");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <section>
@@ -76,7 +51,7 @@ export default function () {
 
         <form
           method="post"
-          onSubmit={uploadBooking}
+          action="/"
           className="form u-margin-block-start-24"
         >
           <ul className="form-list">
@@ -88,8 +63,6 @@ export default function () {
                   className="input-text u-padding-inline-end-56"
                   placeholder="Full name"
                   name="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
             </li>
@@ -101,8 +74,6 @@ export default function () {
                   className="input-text u-padding-inline-end-56"
                   placeholder="abc@example.com"
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </li>
@@ -113,8 +84,6 @@ export default function () {
                   <input
                     type="date"
                     name="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
               </li>
@@ -123,8 +92,6 @@ export default function () {
                 <div className="input-text-wrapper">
                   <select
                     name="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
                   >
                     <option>2pm - 3pm</option>
                     <option>4pm - 5pm</option>
@@ -141,8 +108,6 @@ export default function () {
                   className="input-text"
                   placeholder="Type here..."
                   name="message"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
                   style={{ height: "80px" }}
                 ></textarea>
               </div>

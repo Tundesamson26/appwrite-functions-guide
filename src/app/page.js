@@ -34,9 +34,9 @@ export default function () {
     }
   };
 
-  useEffect( async() => {
+  useEffect(() => {
     // Call clientFunctions and handle the promise
-    await clientFunctions()
+    clientFunctions()
       .then((res) => res)
       .catch((error) => {
         console.log(error);

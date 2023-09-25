@@ -64,7 +64,7 @@ export default function () {
 
         <form
           method="POST"
-          action="https://6510b56386e4ea6ea8ff.appwrite.global/"
+          action="https://6511a3f918497ace0813.appwrite.global/"
           className="form u-margin-block-start-24"
         >
           <ul className="form-list">

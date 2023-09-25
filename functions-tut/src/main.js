@@ -1,33 +1,49 @@
-import { Client } from 'node-appwrite';
+import { Client, Databases, Query, ID } from 'node-appwrite';
+import querystring from 'node:querystring';
 
-// This is your Appwrite function
-// It's executed each time we get a request
-export default async ({ req, res, log, error }) => {
-  // Why not try the Appwrite SDK?
-  //
-  // const client = new Client()
-  //   .setEndpoint('https://cloud.appwrite.io/v1')
-  //   .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-  //   .setKey(process.env.APPWRITE_API_KEY);
 
-  // You can log messages to the console
-  log('Hello, Logs!');
 
-  // If something goes wrong, log an error
-  error('Hello, Errors!');
-
-  // The `req` object contains the request data
+export default async ({ req, res }) => {
   if (req.method === 'GET') {
-    // Send a response with the res object helpers
-    // `res.send()` dispatches a string back to the client
-    return res.send('Hello, World!');
+    const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Contact Form</title>
+  </head>
+  <body>
+    <form action="/" method="POST">
+      <input type="text" id="name" name="name" placeholder="Name" required>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <textarea id="content" name="content" placeholder="Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>`;
+
+    return res.send(html, 200, {'content-type': 'text/html'});
   }
 
-  // `res.json()` is a handy helper for sending JSON
-  return res.json({
-    motto: 'Build Fast. Scale Big. All in One Place.',
-    learn: 'https://appwrite.io/docs',
-    connect: 'https://appwrite.io/discord',
-    getInspired: 'https://builtwith.appwrite.io',
-  });
-};
+  if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
+    const formData = querystring.parse(req.body);
+
+    const message = {
+      name: formData.name,
+      email: formData.email,
+      content: formData.content,
+    };
+
+    const client = new Client();
+    client
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
+      .setKey(process.env.APPWRITE_API_KEY);
+
+    const databases = new Databases(client);
+    const document = await databases.createDocument('[DATABASE_ID]', '[MESSAGES_COLLECTION_ID]', ID.unique(), message);
+
+    return res.send("Message sent");
+  }
+
+  return res.send('Not found', 404);
+}

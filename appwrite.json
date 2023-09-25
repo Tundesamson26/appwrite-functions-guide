@@ -1,0 +1,24 @@
+{
+    "projectId": "650cfbc7ab6c2fceab21",
+    "projectName": "appwrite-functions-guide",
+    "functions": [
+        {
+            "$id": "6511a3f909cb9a3f9aac",
+            "name": "functions-tut",
+            "runtime": "node-18.0",
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "entrypoint": "src/main.js",
+            "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "path": "functions/functions-tut"
+        }
+    ]
+}

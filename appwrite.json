@@ -3,8 +3,8 @@
     "projectName": "appwrite-functions-guide",
     "functions": [
         {
-            "$id": "651196eabcbb28dc5eec",
-            "name": "functions-tut",
+            "$id": "65119aec2cabd904a12b",
+            "name": "function-tut",
             "runtime": "node-18.0",
             "execute": [],
             "events": [],

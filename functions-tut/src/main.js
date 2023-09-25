@@ -21,7 +21,7 @@ export default async ({ req, res }) => {
   </body>
 </html>`;
 
-    return res.send(html, 200, {'content-type': 'text/html'});
+    return res.send(html, 200, { 'content-type': 'text/html' });
   }
 
   if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {

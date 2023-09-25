@@ -18,7 +18,7 @@
                 "node_modules",
                 ".npm"
             ],
-            "path": "functions/functions-tut"
+            "path": "functions-tut"
         }
     ]
 }

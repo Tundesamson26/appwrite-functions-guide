@@ -1,9 +1,7 @@
 import { Client, Databases, Query, ID } from 'node-appwrite';
 import querystring from 'node:querystring';
 
-export default async ({ req, res }) => {
-  if (req.method === 'GET') {
-    const html = `<!doctype html>
+const html = `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -108,6 +106,8 @@ export default async ({ req, res }) => {
   </body>
 </html>`;
 
+export default async ({ req, res }) => {
+  if (req.method === 'GET') {
     return res.send(html, 200, {'content-type': 'text/html'});
   }
 

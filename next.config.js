@@ -3,9 +3,9 @@
 const nextConfig = {
     reactStrictMode: true,
     env: {
-      PROJECT_ID: process.env.PROJECT_ID,
-      API_ENDPOINT: process.env.ENDPOINT,
-      API_KEY: process.env.API_KEY
+      APPWRITE_PROJECT_ID: process.env.APPWRITE_PROJECT_ID,
+      APPWRITE_API_ENDPOINT: process.env.APPWRITE_API_ENDPOINT,
+      APPWRITE_API_KEY: process.env.APPWRITE_API_KEY
     },
     webpack: (config, { isServer }) => {
       if (!isServer) {

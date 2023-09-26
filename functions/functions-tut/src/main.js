@@ -1,8 +1,6 @@
 import { Client, Databases, Query, ID } from 'node-appwrite';
 import querystring from 'node:querystring';
 
-
-
 export default async ({ req, res }) => {
   if (req.method === 'GET') {
     const html = `<!doctype html>
@@ -38,7 +36,7 @@ export default async ({ req, res }) => {
       className="form u-margin-block-start-24"
     >
       <ul className="form-list">
-        <li className="form-item">
+        <li className="form-item" style="list-style-type: none;">
           <label className="label">Full Name</label>
           <div className="input-text-wrapper">
             <input

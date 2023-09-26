@@ -2,9 +2,7 @@
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
 import { databases } from "../web-init";
-import { Client, ID } from "node-appwrite";
 import React from "react";
-import querystring from 'node:querystring';
 
 export default function Home() {
   return (

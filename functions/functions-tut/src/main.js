@@ -45,7 +45,7 @@ const html = `<!doctype html>
             />
           </div>
         </li>
-        <li className="form-item">
+        <li className="form-item" style="list-style-type: none;">
           <label className="label">Email</label>
           <div className="input-text-wrapper">
             <input
@@ -57,7 +57,7 @@ const html = `<!doctype html>
           </div>
         </li>
         <div className="u-flex u-main-space-between u-cross-center">
-          <li className="form-item">
+          <li className="form-item" style="list-style-type: none;">
             <label className="label">Check-In</label>
             <div className="input-text-wrapper">
               <input
@@ -66,7 +66,7 @@ const html = `<!doctype html>
               />
             </div>
           </li>
-          <li className="form-item">
+          <li className="form-item" style="list-style-type: none;">
             <label className="label">Time</label>
             <div className="input-text-wrapper">
               <select
@@ -80,7 +80,7 @@ const html = `<!doctype html>
             </div>
           </li>
         </div>
-        <li className="form-item">
+        <li className="form-item" style="list-style-type: none;">
           <label className="label">Message</label>
           <div className="input-text-wrapper">
             <textarea

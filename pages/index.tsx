@@ -1,7 +1,6 @@
 "use client";
 import "@appwrite.io/pink"; // optionally, add icons
 import "@appwrite.io/pink-icons";
-import { databases } from "../web-init";
 import React from "react";
 
 export default function Home() {
@@ -85,7 +84,7 @@ export default function Home() {
                   className="input-text"
                   placeholder="Type here..."
                   name="message"
-                  style={{ height: "80px" }}
+                  style={{ height: "85px" }}
                 ></textarea>
               </div>
             </li>
@@ -103,34 +102,3 @@ export default function Home() {
     </section>
   );
 }
-
-// export const getServerSideProps = ({ req, res }) => {
-//   if (req.method === 'GET') {
-//     return res.send(Home, 200, {'content-type': 'text/html'});
-//   }
-
-//   if (req.method === 'POST' && req.headers['content-type'] === 'application/x-www-form-urlencoded') {
-//     const formData = querystring.parse(req.body);
-
-//     const message = {
-//       name: formData.name,
-//       email: formData.email,
-//       date: formData.date,
-//       time: formData.time,
-//       content: formData.content,
-//     };
-
-//     const client = new Client();
-//     client
-//       .setEndpoint('https://cloud.appwrite.io/v1')
-//       .setProject("650cfbc7ab6c2fceab21")
-//       .setKey("c107ef3df524e9dce9a39a4df9c14640ce64e8cab1c76a409c128766cc6312b095d84dc7cae94ffa6f4b1a5ed65c089b1e88106f541e4c1f3e15f62c2c9acb6f6061346b5fec1c010836464254988a13e8dd5773d93f175e47ba92fd3d08b7c90cc94c030bb1f1f623a63264e042f73a5eda0920b8a88b94cd44db49a4ddbb3d");
-
-//     // const databases = new Databases(client);
-//      databases.createDocument('650efb16ae5ebb92185a', '650efb593f6c9f97c09c', ID.unique(), message);
-
-//     return res.send("Message sent");
-//   }
-
-//   return res.send('Not found', 404);
-// }

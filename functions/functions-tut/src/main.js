@@ -1,4 +1,4 @@
-import { Client, Databases, Query, ID } from 'node-appwrite';
+import { Client, Databases, ID } from 'node-appwrite';
 import querystring from 'node:querystring';
 
 const html = `<!doctype html>

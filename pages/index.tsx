@@ -1,5 +1,5 @@
 "use client";
-import "@appwrite.io/pink"; // optionally, add icons
+import "@appwrite.io/pink";
 import "@appwrite.io/pink-icons";
 import React from "react";
 
